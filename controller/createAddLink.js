@@ -9,10 +9,9 @@ const conn = mysql.createConnection({
 const
 addLinkCreate = (req, res) => {
         try {
-            let data = { name: req.body.name, url: req.body.url, userId: req.user.userId};
+            let data = { name: req.body.name, url: req.body.url, userId: req.user.user_id};
             let sql = "INSERT INTO AddLink SET ?";
             let query = conn.query(sql, data, (err, result) => {
-                console.log(result)
                 if (err) throw err;
                 return res.json({ status: 200, error: null, response: "New Record is Added successfully" });
             });

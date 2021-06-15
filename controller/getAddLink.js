@@ -11,7 +11,7 @@ addLinkGet = (req, res) => {
         try {
             let sql = ` select name,url from AddLink where userId=${req.user.userId} `;
 	        let query = conn.query(sql, (err, result) => {
-		     if (err) throw err;
+		     if (err) throw err;                                                    
 		    res.send(result);
 	});
         } catch (err) {

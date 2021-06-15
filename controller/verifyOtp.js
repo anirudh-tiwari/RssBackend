@@ -26,18 +26,18 @@ const verifyController = async (req, res) => {
     let data = `${mobile_number}.${otp}.${expires}`;
     let hashCompare = await bcrypt.compare(data,hashValue) ;
     if(hashCompare){
-        let mobileValueSql = `select ID from User where MOBILE_NUMBER=${mobile_number}`;
+        let mobileValueSql = `select ID from User where mobileNumber=${mobile_number}`;
         let query = conn.query(mobileValueSql, (err, result) => {
             if (err) throw err;
         if(!result.length){
-            let data = { MOBILE_NUMBER: mobile_number};
+            let data = { mobileNumber: mobile_number};
             let sql = 'INSERT INTO User SET ?';
             let query = conn.query(sql, data, (err, result) => {
                 if (err) throw err;                                                                                      
             });
         }
         });
-        let id= `select ID from User where MOBILE_NUMBER=${mobile_number}`;
+        let id= `select ID from User where mobileNumber=${mobile_number}`;
         let query2 = conn.query(id, (err, result) => {
             if (err) throw err;
             const accessToken = jwt.sign({mobile_number,user_id:result[0].ID}, JWT_AUTH_TOKEN);
